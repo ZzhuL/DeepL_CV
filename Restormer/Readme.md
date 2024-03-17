@@ -24,6 +24,18 @@
 ## 3.源码问题
 我在autodl上租的GPU进行运行，除了按照INSTALL中安装一些必备库，仍有问题不能完全运行代码。我主要遇到的问题与解决方案主要如下：
 ### 3.1 修改配置文件
-|--Deraining
-  |--Options
-    |--Deraining_Restormer.py
+修改Deraining/Options/Deraining_Restormer.py中GPU数量，按需修改
+### 3.2 No module named 'basicsr'
+'''
+  File "basicsr/train.py", line 10, in <module>
+    from basicsr.data import create_dataloader, create_dataset
+ImportError: cannot import name 'create_dataloader' from 'basicsr.data' (/root/miniconda3/lib/python3.8/site-packages/basicsr/data/__init__.py)
+'''
+解决方法：为python解释器指定搜索路径,即把basicsr的路径添加到环境变量里。可以在train.py文件的开始加入以下代码，并使得basicsr在root_path路径下。在'from basicsr.data import create_dataloader, create_dataset'前加入下段代码：
+'''
+import os
+import sys
+root_path = os.path.abspath(__file__)
+root_path = '/'.join(root_path.split('/')[:-2])
+sys.path.append(root_path)
+'''
