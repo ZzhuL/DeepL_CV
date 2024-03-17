@@ -39,3 +39,8 @@ root_path = os.path.abspath(__file__)
 root_path = '/'.join(root_path.split('/')[:-2])
 sys.path.append(root_path)
 ```
+### 3.3 缺少python包
+根据我添加的`requirements.txt`文件，run
+```
+pip install -r requirements.txt
+```
