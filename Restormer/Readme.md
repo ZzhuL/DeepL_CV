@@ -11,3 +11,11 @@
 * 一种新的使用深度卷积的门控前馈网络(Gated-Dconv feed-forward network, GDFN)，它执行受控的特征转换，即抑制信息量较少的特征，只允许有用的信息进一步通过网络层次结构。  
 
 
+# 代码复现
+## 1.配置
+* GPU RTX 3080 Ti(12GB) * 1
+* CPU 12 vCPU Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz
+* PyTorch  1.8.1
+* Python  3.8(ubuntu18.04)
+* Cuda  11.1
+
