@@ -23,4 +23,7 @@
 
 ## 3.源码问题
 我在autodl上租的GPU进行运行，除了按照INSTALL中安装一些必备库，仍有问题不能完全运行代码。我主要遇到的问题与解决方案主要如下：
-### 3.1
+### 3.1 修改配置文件
+|--Deraining
+  |--Options
+    |--Deraining_Restormer.py
