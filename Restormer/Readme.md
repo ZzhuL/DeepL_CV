@@ -26,6 +26,7 @@
 ### 3.1 修改配置文件
 修改Deraining/Options/Deraining_Restormer.py中GPU数量，按需修改
 ### 3.2 No module named 'basicsr'
+参考这个[解决方案](https://blog.csdn.net/G_B_L/article/details/106745534)
 ```
   File "basicsr/train.py", line 10, in <module>
     from basicsr.data import create_dataloader, create_dataset
