@@ -61,3 +61,40 @@ pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --e
 ```
 pip install -r requirements.txt
 ```
+## 4.CPU test
+在拥有预训练模型的前提下，复现代码想节约成本，在自己电脑上进行测试，可能会遇到显存不足的情况，因此要对图像进行切分，分部处理。首先加入以下两行代码
+```
+parser.add_argument('--tile', type=int, default=80, help='Tile size (e.g 720). None means testing on the original resolution image')
+parser.add_argument('--tile_overlap', type=int, default=32, help='Overlapping of different tiles')
+```
+再加入以下对图片进行切片处理的代码
+```
+            if args.tile is None:
+                print("tile is None")
+                restored = model_restoration(input_)
+            else:
+                # test the image tile by tile
+                b, c, h, w = input_.shape
+                tile = min(args.tile, h, w)
+                print(tile)
+                assert tile % 8 == 0, "tile size should be multiple of 8"
+                tile_overlap = args.tile_overlap
+
+                stride = tile - tile_overlap
+                h_idx_list = list(range(0, h - tile, stride)) + [h - tile]
+                w_idx_list = list(range(0, w - tile, stride)) + [w - tile]
+                E = torch.zeros(b, c, h, w).type_as(input_)
+                W = torch.zeros_like(E)
+
+                for h_idx in h_idx_list:
+                    for w_idx in w_idx_list:
+                        in_patch = input_[..., h_idx:h_idx + tile, w_idx:w_idx + tile]
+                        out_patch = model_restoration(in_patch)
+                        out_patch_mask = torch.ones_like(out_patch)
+
+                        E[..., h_idx:(h_idx + tile), w_idx:(w_idx + tile)].add_(out_patch)
+                        W[..., h_idx:(h_idx + tile), w_idx:(w_idx + tile)].add_(out_patch_mask)
+                restored = E.div_(W)
+            # restored = model_restoration(input_)
+            restored = torch.clamp(restored, 0, 1)
+```
