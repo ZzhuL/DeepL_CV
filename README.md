@@ -9,6 +9,7 @@
 本人将出一个autodl+WinSCP的使用视频，帮助初学者，并且在复现代码中会标明所使用的服务器配置。
 ## 复现目录
 
-* 图像去雨  
-  -[DRSformer]()  
-  -[Restormer](https://github.com/ZzhuL/DeepL_CV/tree/main/Restormer)
+* 图像去雨源码地址  
+  -[DRSformer](https://github.com/cschenxiang/DRSformer)  
+  -[Restormer](https://github.com/swz30/Restormer/tree/main)
+  -[IDT](https://github.com/jiexiaou/IDT?tab=readme-ov-file)
