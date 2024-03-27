@@ -24,7 +24,19 @@
 ## 3.源码问题
 我在autodl上租的GPU进行运行，除了按照INSTALL中安装一些必备库，仍有问题不能完全运行代码。我主要遇到的问题与解决方案主要如下：
 ### 3.1 修改配置文件
-修改Deraining/Options/Deraining_Restormer.py中GPU数量，按需修改
+修改Deraining/Options/Deraining_Restormer.py中GPU数量，按需修改。如果只有一个GPU，则用不到分布式训练，train.sh脚本需要修改。
+```
+#!/usr/bin/env bash
+
+# CONFIG=$1
+
+export NCCL_P2P_DISABLE=1
+
+python setup.py develop --no_cuda_ext
+
+CUDA_VISIBLE_DEVICES=0 python basicsr/train.py -opt Options/Deraining.yml
+```
+CUDA_VISIBLE_DEVICES=0，指的是使用GPU0，原论文中使用了4个GPU，CUDA_VISIBLE_DEVICES=0,1,2,3 分别对应GPU0,GPU1,GPU2,GPU3。
 ### 3.2 No module named 'basicsr'
 参考这个[解决方案](https://blog.csdn.net/G_B_L/article/details/106745534)
 ```
