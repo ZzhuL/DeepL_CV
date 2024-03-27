@@ -98,3 +98,21 @@ parser.add_argument('--tile_overlap', type=int, default=32, help='Overlapping of
             # restored = model_restoration(input_)
             restored = torch.clamp(restored, 0, 1)
 ```
+```
+project
+│   README.md
+│   file001.txt    
+│
+└───folder1
+│   │   file011.txt
+│   │   file012.txt
+│   │
+│   └───subfolder1
+│       │   file111.txt
+│       │   file112.txt
+│       │   ...
+│   
+└───folder2
+    │   file021.txt
+    │   file022.txt
+```
