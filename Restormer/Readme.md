@@ -52,6 +52,10 @@ root_path = os.path.abspath(__file__)
 root_path = '/'.join(root_path.split('/')[:-2])
 sys.path.append(root_path)
 ```
+#### 后来发现是cuda版本问题
+```
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
+```
 ### 3.3 缺少python包
 根据我添加的`requirements.txt`文件，run
 ```
